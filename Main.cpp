@@ -1,5 +1,4 @@
-﻿
-#include "Head.h"
+﻿#include "Head.h"
 void Main()
 {
 	const Font font(30);

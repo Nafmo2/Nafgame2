@@ -16,7 +16,6 @@ private:
 	double  a, g;
 	bool alv;
 	double dx;
-	bool Lm, Rm;
 	bool Mf[5];
 public:
 
