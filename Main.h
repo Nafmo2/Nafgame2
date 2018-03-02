@@ -40,7 +40,7 @@ public:
 	double GetY() {
 		return y;
 	}
-	//時期の重力がかかった移動関数
+	//自機の重力がかかった移動関数
 	//Tは上方向に行くキーが押されたか
 	//dxは速度 gは重力 aは加速度です。
 	void Phy(bool T) {
@@ -53,25 +53,6 @@ public:
 	void Gor() {
 		alv = false;
 	}
-	//軌跡の描画関数
-	void UpK() {
-		//外にはみ出た数
-		int pot = 0;
-		for (auto &s : D) {
-			//はみ出ていなければ座標を減らして弾を描画。はみ出ていたら、カウントを増やす。
-			if (0 < s.first) {
-				s.first -= 4;
-				Circle(s.first, s.second, 4).draw(Palette::Aqua);
-			}
-			else pot++;
-
-		}
-		//はみ出た数だけpopする。
-		//(先に入れた要素が先に画面外に出るはずなので)
-		for (int i = 0; i < pot; i++)D.pop_front();
-	}
-
-
 };
 class Ball {
 private:
@@ -145,28 +126,4 @@ long long int RW(int x) {
 	fe.close();
 	HighScore = S[5];
 	return HighScore;
-}/*
- long long int RW(int x) {
-	String Name =L"";
-	if (Ad)return HighScore;
-	std::fstream fs,fe;
-	
-	std::pair<String,String> S[10];
-	fs.open("ranking.txt", std::ios::in);
-	TextReader reader(L"ranking.txt");
-	for (int i = 0; i < 5; i++)reader.readLine(S[i].first);
-	for (int i = 0; i < 5; i++)reader.readLine(S[i].second);
-	S[5].first = Format(x);
-	std::sort(S, S + 6);
-	fs.close();
-	reader.close();
-	fe.open("ranking.txt", std::ios::out | std::ios::trunc);
-	TextWriter write(L"ranking.txt");
-	for (int i = 0; i < 5; i++)write.writeln(S[i].first);
-	for (int i = 0; i < 5; i++)write.writeln(S[i].second);
-	write.close();
-	 HighScore = Parse<int>(S[5].first);
-	 return HighScore;
 }
-
- */
