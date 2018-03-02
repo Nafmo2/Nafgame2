@@ -12,20 +12,22 @@ __int64 HighScore;
 bool Ad = false;
 class Player {
 private:
-	double x, y;
+	double x, y,px;
 	double  a, g;
 	bool alv;
 	double dx;
+	bool Lm, Rm;
 public:
 
 	std::list<std::pair<double, double>> D;
 	void Init() {
 		x = 100;
-		y = 240;
+		y = 100;
 		dx = 0;
 		a = 0.75;
 		g = 0.30;
 		alv = true;
+		Lm = Rm = false;
 		D.clear();
 	}
 	Player() {
@@ -40,14 +42,26 @@ public:
 	double GetY() {
 		return y;
 	}
-	//自機の重力がかかった移動関数
-	//Tは上方向に行くキーが押されたか
-	//dxは速度 gは重力 aは加速度です。
-	void Phy(bool T) {
-		y += dx;
-		dx += g;
-		if (T) {
-			dx -= a;
+	void move() {
+		if (Input::KeyRight.clicked) {
+			if (!Rm && !Lm) {
+				Rm = true;
+				dx = 1, px = x;
+			}
+		}
+		if (Input::KeyLeft.clicked) {
+			if (!Rm && !Lm) {
+				Lm = true;
+				dx = 1, px = x;
+			}
+		}
+		if (Rm || Lm) {
+			if ((Rm ? x<px + 50 : x>px - 50)) {
+				x += (Rm ? dx : -dx);
+			}
+			else {
+				Rm = Lm = false;
+			}
 		}
 	}
 	void Gor() {
