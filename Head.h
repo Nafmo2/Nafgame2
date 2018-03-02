@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <list>
 #include <Siv3D.hpp>
 #include <queue>
@@ -89,7 +89,7 @@ public:
 	Ball() {
 		Init();
 	}
-	//”ò‚ñ‚Å‚¢‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO‚ğ•Ô‚·
+	//é£›ã‚“ã§ã„ã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°ã‚’è¿”ã™
 	bool NF() {
 		return flag;
 	}
@@ -105,8 +105,8 @@ public:
 	double GetY() {
 		return y;
 	}
-	//¡‰ñ‚Í‰¡‚É‚µ‚©”ò‚Î‚³‚È‚¢‚Ì‚Åspeed‚¾‚¯xÀ•W‚ğˆø‚­B
-	//‚Í‚İo‚½‚ç”ò‚ñ‚Å‚¢‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO‚ğfalse‚É
+	//ä»Šå›ã¯æ¨ªã«ã—ã‹é£›ã°ã•ãªã„ã®ã§speedã ã‘xåº§æ¨™ã‚’å¼•ãã€‚
+	//ã¯ã¿å‡ºãŸã‚‰é£›ã‚“ã§ã„ã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°ã‚’falseã«
 	void Phy() {
 		x -= speed;
 		if (x < 0)flag = false;
@@ -115,13 +115,13 @@ public:
 
 
 };
-//ƒXƒRƒA‚ğ‹L˜^‚·‚é‚½‚ß‚Éƒtƒ@ƒCƒ‹“üo—Í‚·‚é‚Æ‚±‚ë
+//ã‚¹ã‚³ã‚¢ã‚’è¨˜éŒ²ã™ã‚‹ãŸã‚ã«ãƒ•ã‚¡ã‚¤ãƒ«å…¥å‡ºåŠ›ã™ã‚‹ã¨ã“ã‚
 long long int RW(int x) {
-	if (Ad)return HighScore;//Admin‹@”\‚ğg‚Á‚½‚ç’e‚­
+	if (Ad)return HighScore;//Adminæ©Ÿèƒ½ã‚’ä½¿ã£ãŸã‚‰å¼¾ã
 	std::fstream fs, fe;
 	long long int S[10];
 	fs.open("ranking.txt", std::ios::in);
-	//ŠJ‚¯‚È‚©‚Á‚½ê‡ 100`60‚Ü‚Å‚ğ‘‚«‚ñ‚¾ƒtƒ@ƒCƒ‹‚ğì‚éB
+	//é–‹ã‘ãªã‹ã£ãŸå ´åˆ 100ï½60ã¾ã§ã‚’æ›¸ãè¾¼ã‚“ã ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œã‚‹ã€‚
 	if (!fs.is_open()) {
 		fs.close();
 		std::fstream fw; fw.open("ranking.txt", std::ios::out | std::ios::trunc);
@@ -132,7 +132,7 @@ long long int RW(int x) {
 
 	for (int i = 0; i < 5; i++)fs >> S[i];
 	S[5] = x;
-	//“¾“_‡‚Éƒ\[ƒg
+	//å¾—ç‚¹é †ã«ã‚½ãƒ¼ãƒˆ
 	std::sort(S, S + 6);
 	fs.close();
 	fe.open("ranking.txt", std::ios::out | std::ios::trunc);
