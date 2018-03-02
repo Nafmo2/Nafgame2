@@ -17,6 +17,7 @@ private:
 	bool alv;
 	double dx;
 	bool Lm, Rm;
+	bool Mf[5];
 public:
 
 	std::list<std::pair<double, double>> D;
@@ -27,7 +28,7 @@ public:
 		a = 0.75;
 		g = 0.30;
 		alv = true;
-		Lm = Rm = false;
+		Mf[0]= Mf[1]= Mf[2]= Mf[3] =false;
 		D.clear();
 	}
 	Player() {
@@ -44,23 +45,23 @@ public:
 	}
 	void move() {
 		if (Input::KeyRight.clicked) {
-			if (!Rm && !Lm) {
-				Rm = true;
+			if (!Mf[1] && !Mf[0]) {
+				Mf[1] = true;
 				dx = 1, px = x;
 			}
 		}
 		if (Input::KeyLeft.clicked) {
-			if (!Rm && !Lm) {
-				Lm = true;
+			if (!Mf[1] && !Mf[0]) {
+				Mf[0] = true;
 				dx = 1, px = x;
 			}
 		}
-		if (Rm || Lm) {
-			if ((Rm ? x<px + 50 : x>px - 50)) {
-				x += (Rm ? dx : -dx);
+		if (Mf[1] || Mf[0]) {
+			if ((Mf[1] ? x<px + 50 : x>px - 50)) {
+				x += (Mf[1] ? dx : -dx);
 			}
 			else {
-				Rm = Lm = false;
+				Mf[1] = Mf[0] = false;
 			}
 		}
 	}
