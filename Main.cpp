@@ -4,7 +4,6 @@ void Main()
 {
 	const Font font(30);
 	Player P;
-	bool M=false,N=false;
 	while (System::Update())
 	{
 		Circle(P.GetX(), P.GetY(),20).draw(Color(0,255,255));
@@ -13,7 +12,6 @@ void Main()
 		Line(0, 80, 640, 80).draw(1);
 		Line(0, 120, 640, 120).draw(1);
 		P.move();
-
 		font(L"x:",P.GetX(),L" dx:Disable").draw();
 	}
 }
