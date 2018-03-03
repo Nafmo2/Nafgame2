@@ -12,22 +12,25 @@ __int64 HighScore;
 bool Ad = false;
 class Player {
 private:
-	double x, y,px;
+	double x, y, px, py;
 	double  a, g;
 	bool alv;
-	double dx;
-	bool Mf[5];
+	double dx, dy, speed;
+	double movew;
+	bool mf[5];
 public:
 
 	std::list<std::pair<double, double>> D;
 	void Init() {
 		x = 100;
 		y = 100;
-		dx = 0;
+		speed = 2;
+		dx = dy = 0;
 		a = 0.75;
 		g = 0.30;
 		alv = true;
-		Mf[0]= Mf[1]= Mf[2]= Mf[3] =false;
+		mf[0]= mf[1]= mf[2]= mf[3] =false;
+		movew = 40;
 		D.clear();
 	}
 	Player() {
@@ -43,24 +46,44 @@ public:
 		return y;
 	}
 	void move() {
-		if (Input::KeyRight.clicked) {
-			if (!Mf[1] && !Mf[0]) {
-				Mf[1] = true;
-				dx = 1, px = x;
+		if (Input::KeyLeft.pressed) {
+			if (!mf[0] && !mf[1]) {
+				mf[0] = true;
+				dx = speed, px = x;
 			}
 		}
-		if (Input::KeyLeft.clicked) {
-			if (!Mf[1] && !Mf[0]) {
-				Mf[0] = true;
-				dx = 1, px = x;
+		if (Input::KeyRight.pressed) {
+			if (!mf[0] && !mf[1]) {
+				mf[1] = true;
+				dx = speed, px = x;
 			}
 		}
-		if (Mf[1] || Mf[0]) {
-			if ((Mf[1] ? x<px + 50 : x>px - 50)) {
-				x += (Mf[1] ? dx : -dx);
+		if (Input::KeyUp.pressed) {
+			if (!mf[2] && !mf[3]) {
+				mf[2] = true;
+				dy = speed, py = y;
+			}
+		}
+		if (Input::KeyDown.pressed) {
+			if (!mf[2] && !mf[3]) {
+				mf[3] = true;
+				dy = speed, py = y;
+			}
+		}
+		if (mf[0] || mf[1]) {
+			if ((mf[1] ? x<px + movew*2 : x>px - movew*2)) {
+				x += (mf[1] ? dx : -dx)*2;
 			}
 			else {
-				Mf[1] = Mf[0] = false;
+				mf[1] = mf[0] = false;
+			}
+		}
+		if (mf[2] || mf[3]) {
+			if ((mf[3] ? y<py + movew : y>py - movew)) {
+				y += (mf[3] ? dy : -dy);
+			}
+			else {
+				mf[2] = mf[3] = false;
 			}
 		}
 	}
