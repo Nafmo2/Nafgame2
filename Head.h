@@ -23,7 +23,7 @@ public:
 	std::list<std::pair<double, double>> D;
 	void Init() {
 		x = 100;
-		y = 100;
+		y = 140;
 		speed = 2;
 		dx = dy = 0;
 		a = 0.75;
@@ -80,7 +80,11 @@ public:
 		}
 		if (mf[2] || mf[3]) {
 			if ((mf[3] ? y<py + movew : y>py - movew)) {
-				y += (mf[3] ? dy : -dy);
+				if ((py==340&&mf[3])||(py==140&&mf[2]))
+					mf[2] = mf[3] = false;
+				else
+					y += (mf[3] ? dy : -dy);
+
 			}
 			else {
 				mf[2] = mf[3] = false;
