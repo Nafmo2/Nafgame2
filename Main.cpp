@@ -6,11 +6,12 @@ void Main()
 	while (System::Update())
 	{
 		Circle(P.GetX(), P.GetY(),20).draw(Color(0,255,255));
-		Circle(100, 140, 20).draw(Color(0, 255, 0));
-		Circle(150, 140, 20).draw(Color(0, 255, 0));
-		Line(0, 80, 640, 80).draw(1);
-		Line(0, 120, 640, 120).draw(1);
+		for (int i = 1; i <= 16; i++) {
+			Line(0, 40*i, 640, 40*i).draw(1);
+			Line(40*i, 0, 40*i, 480).draw(1);
+		}
+
 		P.move();
-		font(L"x:",P.GetX(),L" dx:Disable").draw();
+		font(L"x:",P.GetX(),L" y:",P.GetY()).draw();
 	}
 }
