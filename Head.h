@@ -15,16 +15,15 @@ private:
 	double x, y, px, py;
 	double  a, g;
 	bool alv;
-	double dx, dy, speed;
+	double dx, dy, speed,power;
 	double movew;
 	bool mf[5];
 public:
 
 	std::list<std::pair<double, double>> D;
 	void Init() {
-		x = 100;
-		y = 140;
-		speed = 4;
+		x = 100,y = 140;
+		speed = 4,power=1;
 		dx = dy = 0;
 		a = 0.75;
 		g = 0.30;
@@ -39,11 +38,17 @@ public:
 	bool Alive() {
 		return alv;
 	}
+	bool Attack() {
+		return x > 160;
+	}
 	double GetX() {
 		return x;
 	}
 	double GetY() {
 		return y;
+	}
+	double GetPow() {
+		return power;
 	}
 	void move() {
 		if(!mf[0] && !mf[1]){
@@ -96,8 +101,8 @@ public:
 class Enemy {
 private:
 	double x, y;
-	double g, speed;
-	double dx;
+	double hp,mhp;
+	double dx,speed;
 	bool flag;
 
 
@@ -107,7 +112,7 @@ public:
 		x = 300;
 		y = 240;
 		dx = 0;
-		speed = 5;
+		hp = mhp = 600;
 		flag = false;
 	}
 	Enemy() {
@@ -128,6 +133,13 @@ public:
 	}
 	double GetY() {
 		return y;
+	}
+	double GetHpR() {
+		return hp / mhp;
+	}
+	void Attacked(bool f,double power) {
+		if (f)hp -= power;
+		if (hp < 0)hp = 0;
 	}
 	//今回は横にしか飛ばさないのでspeedだけx座標を引く。
 	//はみ出たら飛んでいるかどうかのフラグをfalseに
