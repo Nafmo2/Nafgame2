@@ -12,22 +12,24 @@ __int64 HighScore;
 bool Ad = false;
 class Player {
 private:
-	double x, y,px;
+	double x, y, px, py;
 	double  a, g;
 	bool alv;
-	double dx;
-	bool Mf[5];
+	double dx, dy, speed,power;
+	double movew;
+	bool mf[5];
 public:
 
 	std::list<std::pair<double, double>> D;
 	void Init() {
-		x = 100;
-		y = 100;
-		dx = 0;
+		x = 100,y = 140;
+		speed = 4,power=1;
+		dx = dy = 0;
 		a = 0.75;
 		g = 0.30;
 		alv = true;
-		Mf[0]= Mf[1]= Mf[2]= Mf[3] =false;
+		mf[0]= mf[1]= mf[2]= mf[3] =false;
+		movew = 40;
 		D.clear();
 	}
 	Player() {
@@ -36,31 +38,59 @@ public:
 	bool Alive() {
 		return alv;
 	}
+	bool Attack() {
+		return x > 160;
+	}
 	double GetX() {
 		return x;
 	}
 	double GetY() {
 		return y;
 	}
+	double GetPow() {
+		return power;
+	}
 	void move() {
-		if (Input::KeyRight.clicked) {
-			if (!Mf[1] && !Mf[0]) {
-				Mf[1] = true;
-				dx = 1, px = x;
+		if(!mf[0] && !mf[1]){
+			if (Input::KeyLeft.pressed) {
+					mf[0] = true;
+					dx = speed*2, px = x - movew * 2;
+			}
+			if (Input::KeyRight.pressed) {
+					mf[1] = true;
+					dx = speed*2, px = x + movew * 2;
 			}
 		}
-		if (Input::KeyLeft.clicked) {
-			if (!Mf[1] && !Mf[0]) {
-				Mf[0] = true;
-				dx = 1, px = x;
+		if (!mf[2] && !mf[3]) {
+			if (Input::KeyUp.pressed) {
+				mf[2] = true;
+				dy = speed, py = y - movew;
+			}
+			if (Input::KeyDown.pressed) {
+				mf[3] = true;
+				dy = speed, py = y + movew;
 			}
 		}
-		if (Mf[1] || Mf[0]) {
-			if ((Mf[1] ? x<px + 50 : x>px - 50)) {
-				x += (Mf[1] ? dx : -dx);
+		if (mf[0] || mf[1]) {
+			if ((mf[1] ? x<px : x>px)) {
+				if(px<100||px>180)
+					mf[1] = mf[0] = false;
+				else
+					x += (mf[1] ? dx : -dx);
 			}
 			else {
-				Mf[1] = Mf[0] = false;
+				mf[1] = mf[0] = false;
+			}
+		}
+		if (mf[2] || mf[3]) {
+			if ((mf[3] ? y<py : y>py)) {
+				if (py<140||py>340)
+					mf[2] = mf[3] = false;
+				else
+					y += (mf[3] ? dy : -dy);
+			}
+			else {
+				mf[2] = mf[3] = false;
 			}
 		}
 	}
@@ -68,24 +98,24 @@ public:
 		alv = false;
 	}
 };
-class Ball {
+class Enemy {
 private:
 	double x, y;
-	double g, speed;
-	double dx;
+	double hp,mhp;
+	double dx,speed;
 	bool flag;
 
 
 public:
 	double Col;
 	void Init() {
-		x = 100;
-		y = 100;
+		x = 300;
+		y = 240;
 		dx = 0;
-		speed = 5;
+		hp = mhp = 600;
 		flag = false;
 	}
-	Ball() {
+	Enemy() {
 		Init();
 	}
 	//飛んでいるかどうかのフラグを返す
@@ -103,6 +133,13 @@ public:
 	}
 	double GetY() {
 		return y;
+	}
+	double GetHpR() {
+		return hp / mhp;
+	}
+	void Attacked(bool f,double power) {
+		if (f)hp -= power;
+		if (hp < 0)hp = 0;
 	}
 	//今回は横にしか飛ばさないのでspeedだけx座標を引く。
 	//はみ出たら飛んでいるかどうかのフラグをfalseに
