@@ -91,7 +91,7 @@ public:
 		alv = false;
 	}
 };
-class Ball {
+class Enemy {
 private:
 	double x, y;
 	double g, speed;
@@ -102,13 +102,13 @@ private:
 public:
 	double Col;
 	void Init() {
-		x = 100;
-		y = 100;
+		x = 300;
+		y = 220;
 		dx = 0;
 		speed = 5;
 		flag = false;
 	}
-	Ball() {
+	Enemy() {
 		Init();
 	}
 	//飛んでいるかどうかのフラグを返す
