@@ -24,7 +24,7 @@ public:
 	void Init() {
 		x = 100;
 		y = 140;
-		speed = 2;
+		speed = 4;
 		dx = dy = 0;
 		a = 0.75;
 		g = 0.30;
@@ -46,33 +46,29 @@ public:
 		return y;
 	}
 	void move() {
-		if (Input::KeyLeft.pressed) {
-			if (!mf[0] && !mf[1]) {
-				mf[0] = true;
-				dx = speed, px = x;
+		if(!mf[0] && !mf[1]){
+			if (Input::KeyLeft.pressed) {
+					mf[0] = true;
+					dx = speed*2, px = x - movew * 2;
+			}
+			if (Input::KeyRight.pressed) {
+					mf[1] = true;
+					dx = speed*2, px = x + movew * 2;
 			}
 		}
-		if (Input::KeyRight.pressed) {
-			if (!mf[0] && !mf[1]) {
-				mf[1] = true;
-				dx = speed, px = x;
-			}
-		}
-		if (Input::KeyUp.pressed) {
-			if (!mf[2] && !mf[3]) {
+		if (!mf[2] && !mf[3]) {
+			if (Input::KeyUp.pressed) {
 				mf[2] = true;
-				dy = speed, py = y;
+				dy = speed, py = y - movew;
 			}
-		}
-		if (Input::KeyDown.pressed) {
-			if (!mf[2] && !mf[3]) {
+			if (Input::KeyDown.pressed) {
 				mf[3] = true;
-				dy = speed, py = y;
+				dy = speed, py = y + movew;
 			}
 		}
 		if (mf[0] || mf[1]) {
-			if ((mf[1] ? x<px + movew*2 : x>px - movew*2)) {
-				if((px == 100 && mf[0]) || (px == 180 && mf[1]))
+			if ((mf[1] ? x<px : x>px)) {
+				if(px<100||px>180)
 					mf[1] = mf[0] = false;
 				else
 					x += (mf[1] ? dx : -dx);
@@ -82,8 +78,8 @@ public:
 			}
 		}
 		if (mf[2] || mf[3]) {
-			if ((mf[3] ? y<py + movew : y>py - movew)) {
-				if ((py==340&&mf[3])||(py==140&&mf[2]))
+			if ((mf[3] ? y<py : y>py)) {
+				if (py<140||py>340)
 					mf[2] = mf[3] = false;
 				else
 					y += (mf[3] ? dy : -dy);
