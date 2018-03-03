@@ -72,7 +72,10 @@ public:
 		}
 		if (mf[0] || mf[1]) {
 			if ((mf[1] ? x<px + movew*2 : x>px - movew*2)) {
-				x += (mf[1] ? dx : -dx)*2;
+				if((px == 100 && mf[0]) || (px == 180 && mf[1]))
+					mf[1] = mf[0] = false;
+				else
+					x += (mf[1] ? dx : -dx);
 			}
 			else {
 				mf[1] = mf[0] = false;
@@ -84,7 +87,6 @@ public:
 					mf[2] = mf[3] = false;
 				else
 					y += (mf[3] ? dy : -dy);
-
 			}
 			else {
 				mf[2] = mf[3] = false;
@@ -107,7 +109,7 @@ public:
 	double Col;
 	void Init() {
 		x = 300;
-		y = 220;
+		y = 240;
 		dx = 0;
 		speed = 5;
 		flag = false;
