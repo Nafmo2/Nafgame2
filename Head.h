@@ -85,14 +85,16 @@ public:
 		}
 		if(mf[0] || mf[1]){
 			if((mf[1]?x<px:x>px)){
-					x += (mf[1]?dx:-dx);
+					if(pos==1||pos==3||pos==6||pos==8)x += (mf[1]?dx:-dx);
+					else{ pos -= (mf[1]?5:-5); mf[1] = mf[0] = false;}
 			}else{
 				mf[1] = mf[0] = false;
 			}
 		}
 		if(mf[2] || mf[3]){
 			if((mf[3]?y<py:y>py)){
-				y += (mf[3]?dy:-dy);
+				if(pos < 5)y += (mf[3]?dy:-dy);
+				else{ pos -= (mf[3]?1:-1); mf[2] = mf[3] = false; }
 			}else{
 				mf[2] = mf[3] = false;
 			}
