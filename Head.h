@@ -13,10 +13,10 @@ bool Ad = false;
 class Player{
 private:
 	double x,y,px,py;
-	double  a,g;
-	bool alv;
 	double dx,dy,speed,power;
 	double movew;
+	int  pos;
+	bool alv;
 	bool mf[5];
 public:
 
@@ -25,8 +25,7 @@ public:
 		x = 100,y = 160;
 		speed = 4,power = 1;
 		dx = dy = 0;
-		a = 0.75;
-		g = 0.30;
+		pos = 0;
 		alv = true;
 		mf[0] = mf[1] = mf[2] = mf[3] = false;
 		movew = 40;
@@ -50,6 +49,9 @@ public:
 	double GetPow(){
 		return power;
 	}
+	int GetPos(){
+		return pos;
+	}
 	void move(){
 		if(!mf[0] && !mf[1]){
 			if(Input::KeyLeft.pressed){
@@ -59,6 +61,11 @@ public:
 			if(Input::KeyRight.pressed){
 				mf[1] = true;
 				dx = speed * 2,px = x + movew * 2;
+			}
+			if(px < 100 || px>180)
+				mf[1] = mf[0] = false;
+			else if(mf[0]||mf[1]){
+				pos += (mf[1]?5:-5);
 			}
 		}
 		if(!mf[2] && !mf[3]){
@@ -70,24 +77,23 @@ public:
 				mf[3] = true;
 				dy = speed,py = y + movew;
 			}
+			if(py < 160 || py>320)
+				mf[2] = mf[3] = false;
+			else if(mf[2] || mf[3]){
+				pos += (mf[3]?1:-1);
+			}
 		}
 		if(mf[0] || mf[1]){
 			if((mf[1]?x<px:x>px)){
-				if(px < 100 || px>180)
-					mf[1] = mf[0] = false;
-				else
 					x += (mf[1]?dx:-dx);
-			} else{
+			}else{
 				mf[1] = mf[0] = false;
 			}
 		}
 		if(mf[2] || mf[3]){
 			if((mf[3]?y<py:y>py)){
-				if(py < 160 || py>320)
-					mf[2] = mf[3] = false;
-				else
-					y += (mf[3]?dy:-dy);
-			} else{
+				y += (mf[3]?dy:-dy);
+			}else{
 				mf[2] = mf[3] = false;
 			}
 		}
