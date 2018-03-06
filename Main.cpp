@@ -26,6 +26,6 @@ void Main()
 		}
 		Circle(pos, 5).draw(Palette::Yellow);
 		font(pos).draw(0,400);
-		font(L"x:",P.GetX(),L" y:",P.GetY(),L" EnemyHp:",int(E.GetHpR()*100),L"%").draw();
+		font(L"x:",P.GetX(),L" y:",P.GetY(),L" EnemyHp:",int(E.GetHpR()*100),L"% Pos:",P.GetPos()).draw();
 	}
 }
