@@ -12,13 +12,17 @@ void Main()
 		Circle(P.GetX(), P.GetY(),20).draw(Color(0,255,255));
 		Circle(E.GetX(), E.GetY(), 100).draw(Palette::Orange);
 		font(L"Enemy?").drawCenter(E.GetX(), E.GetY(), Palette::White);
-		Rect(120,80,400,40).drawFrame(1,1,Palette::Orange);
-		Rect(120,80,400*E.GetHpR(),40).draw(Palette::Orange);
+		Rect(380,90,200,20).drawFrame(1,1,Palette::Orange);
+		Rect(380,90,200*E.GetHpR(),20).draw(Palette::Orange);
 
 
-		for (int i = 1; i <= 16; i++) {
-			Line(0, 40*i, 640, 40*i).draw(1);
-			Line(40*i, 0, 40*i, 480).draw(1);
+		
+		Rect(80, 140, 40, 200).drawFrame(0, 5, Palette::White);
+		Rect(160, 140, 40, 200).drawFrame(0, 5, Palette::White);
+		for (int i = 0; i < 4; i++) {
+			Line(80,180 + i * 40,120,180 + i * 40).draw(2.5);
+			Line(160,180 + i * 40,200,180 + i * 40).draw(2.5);
+
 		}
 		Circle(pos, 5).draw(Palette::Yellow);
 		font(pos).draw(0,400);
