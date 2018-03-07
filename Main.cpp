@@ -15,8 +15,9 @@ void Main()
 			EA = Random(100,120);
 			count = 0;
 		}
-		if(count % EA > EA-30){
-			Line(240,160,200,160).drawArrow(10,{15.0,15.0},Palette::Yellowgreen);
+		if(count % EA > EA-40){
+			for(int i = 0; i < 5;i++)
+				Line(240,160 + i * 40,200,160+i * 40).drawArrow(10,{ 15.0,15.0 },Palette::Yellowgreen);
 		}
 		Circle(P.GetX(), P.GetY(),20).draw(Color(0,255,255));
 		Circle(E.GetX(), E.GetY(), 100).draw(Palette::Orange);
