@@ -14,7 +14,7 @@ class Player{
 private:
 	double x,y,px,py;
 	double dx,dy,speed,power;
-	double movew;
+	double movew,hp,mhp;
 	int  pos;
 	bool alv;
 	bool mf[5];
@@ -25,7 +25,7 @@ public:
 		x = 100,y = 160;
 		speed = 4,power = 1;
 		dx = dy = 0;
-		pos = 0;
+		pos = 0,hp = mhp = 6000;
 		alv = true;
 		mf[0] = mf[1] = mf[2] = mf[3] = false;
 		movew = 40;
@@ -40,6 +40,10 @@ public:
 	bool Attack(){
 		return x > 160;
 	}
+	void Attacked(double p){
+		hp -= p;
+		if(hp < 0)hp = 0;
+	}
 	double GetX(){
 		return x;
 	}
@@ -51,6 +55,9 @@ public:
 	}
 	int GetPos(){
 		return pos;
+	}
+	double GetHpR(){
+		return hp / mhp;
 	}
 	void move(){
 		if(!mf[0] && !mf[1]){
@@ -106,7 +113,7 @@ class Enemy{
 private:
 	double x,y;
 	double hp,mhp;
-	double dx,speed;
+	double dx,speed,power;
 	bool flag;
 
 
@@ -117,6 +124,7 @@ public:
 		y = 240;
 		dx = 0;
 		hp = mhp = 600;
+		power = 500;
 		flag = false;
 	}
 	Enemy(){
@@ -141,8 +149,11 @@ public:
 	double GetHpR(){
 		return hp / mhp;
 	}
-	void Attacked(bool f,double power){
-		if(f)hp -= power;
+	double GetPow(){
+		return power;
+	}
+	void Attacked(bool f,double p){
+		if(f)hp -= p;
 		if(hp < 0)hp = 0;
 	}
 	//今回は横にしか飛ばさないのでspeedだけx座標を引く。
