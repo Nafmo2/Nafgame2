@@ -1,7 +1,7 @@
 ﻿#include "Head.h"
 void Main()
 {
-	const Font font(15),Ene(20);
+	const Font font(15),Ene(25);
 	Player P;
 	Enemy  E;
 	int count = 0,EA=60;
@@ -12,15 +12,15 @@ void Main()
 		E.Attacked(P.Attack(),P.GetPow());
 		if(count%EA==0){
 			if(P.GetPos()>4)P.Attacked(E.GetPow());
-			EA = Random(100,120);
+			EA = Random(60,120);
 			count = 0;
 		}
-		if(count % EA > EA-40){
+		if(count % EA > EA-30){
 			for(int i = 0; i < 5;i++)
 				Line(240,160 + i * 40,200,160+i * 40).drawArrow(10,{ 15.0,15.0 },Palette::Yellowgreen);
 		}
 		Circle(P.GetX(), P.GetY(),20).draw(Color(0,255,255));
-		Circle(E.GetX(), E.GetY(), 100).draw(Palette::Orange);
+		Circle(E.GetX(), E.GetY(), 95).draw(Palette::Orange);
 		Ene(L"Enemy?").drawCenter(E.GetX(), E.GetY(), Palette::White);
 		Rect(380,90,200,20).drawFrame(1,1,Palette::Orange);
 		Rect(380,90,200*E.GetHpR(),20).draw(Palette::Orange);
@@ -28,7 +28,8 @@ void Main()
 		Rect(80,90,200 * P.GetHpR(),20).draw(Palette::Cyan);
 		Rect(380,120,200,20).drawFrame(1,1,Palette::Orange);
 		Rect(380,120,200*(1.0-double(count)/double(EA)),20).draw(Palette::Orange);
-		
+		Ene(int(E.GetHpR() * 100),L"%").drawCenter(480,100,Palette::White);
+		Ene(int(P.GetHpR() * 100),L"%").drawCenter(180,100,Palette::White);
 		Rect(80, 140, 40, 200).drawFrame(0, 5, Palette::White);
 		Rect(160, 140, 40, 200).drawFrame(0, 5, Palette::White);
 		for (int i = 0; i < 4; i++) {
