@@ -16,7 +16,7 @@ void Main()
 			E.Attacked(P.Attack(),P.GetPow());
 			if(count%EA == 0){
 				if(P.GetPos()>4)P.Attacked(E.GetPow());
-				EA = Random(60,120);
+				EA = Random(40,120);
 				count = 0;
 			}
 			if(count % EA > EA - 30){
