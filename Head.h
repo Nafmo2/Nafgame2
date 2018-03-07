@@ -56,6 +56,9 @@ public:
 	int GetPos(){
 		return pos;
 	}
+	double GetHp(){
+		return hp;
+	}
 	double GetHpR(){
 		return hp / mhp;
 	}
@@ -148,6 +151,9 @@ public:
 	}
 	double GetHpR(){
 		return hp / mhp;
+	}
+	double GetHp(){
+		return hp;
 	}
 	double GetPow(){
 		return power;
